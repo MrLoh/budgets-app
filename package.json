@@ -1,0 +1,78 @@
+{
+  "name": "empty-project-template",
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "scripts": {
+    "start": "expo start --ios",
+    "build": "expo build:ios",
+    "eject": "expo eject"
+  },
+  "dependencies": {
+    "expo": "^31.0.6",
+    "react": "16.7.0-alpha.2",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-31-with-hooks-dangerzone.tar.gz",
+    "styled-components": "^4.1.2"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^5.0.0",
+    "eslint": "^5.10.0",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react-hooks": "^0.0.0",
+    "prettier": "^1.15.3"
+  },
+  "babel": {
+    "presets": [
+      "babel-preset-expo"
+    ]
+  },
+  "prettier": {
+    "printWidth": 100,
+    "semi": false,
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "arrowParens": "always"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2019
+    },
+    "env": {
+      "browser": true,
+      "es6": true
+    },
+    "plugins": [
+      "react",
+      "react-hooks"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "globals": {
+      "__DEV__": true
+    },
+    "rules": {
+      "no-var": "warn",
+      "prefer-const": "warn",
+      "no-await-in-loop": "error",
+      "prefer-spread": "error",
+      "no-template-curly-in-string": "warn",
+      "default-case": "warn",
+      "eqeqeq": [
+        "warn",
+        "smart"
+      ],
+      "no-alert": "error",
+      "no-extend-native": "warn",
+      "no-implicit-coercion": "warn",
+      "no-useless-concat": "warn",
+      "no-shadow": "warn",
+      "react/no-unknown-property": "error",
+      "react/prop-types": "off",
+      "react-hooks/rules-of-hooks": "error"
+    }
+  }
+}

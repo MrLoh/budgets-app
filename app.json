@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Budgets",
+    "description": "Simple budgeting app",
+    "slug": "budgets",
+    "sdkVersion": "31.0.0",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "privacy": "public",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "platforms": [
+      "ios"
+    ],
+    "updates": {
+      "enabled": true
+    },
+    "assetBundlePatterns": [
+      "assets/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.mrloh.budgets",
+      "supportsTablet": false
+    }
+  }
+}
