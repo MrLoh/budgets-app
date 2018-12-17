@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { Text, Alert } from 'react-native'
+import { Text } from 'react-native'
+
+import Button from './Button'
 
 const Wrapper = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
+  background-color: seagreen;
 `
 
 const App = () => {
-  const [count, setCount] = useState(0)
-  useEffect(() => count && Alert.alert(`you clicked ${count} times`))
   return (
     <Wrapper>
-      <Text>Test Counter</Text>
-      <Text onPress={() => setCount(count + 1)}>{count}</Text>
+      <Text>Hello, Anika</Text>
+      <Button label="my button" onPress={() => alert('Hello')} />
+      <Button label="my other button" onPress={() => alert('Hello too')} color="red" />
     </Wrapper>
   )
 }
