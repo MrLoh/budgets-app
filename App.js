@@ -1,22 +1,48 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { Text } from 'react-native'
+import { Image, StatusBar } from 'react-native'
 
-import Button from './Button'
+import { Button, Title, Polaroid } from './components'
 
 const Wrapper = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  background-color: seagreen;
+  background-color: lightgray;
 `
 
+const getRandomKitty = async () => {
+  const response = await fetch('https://api.thecatapi.com/v1/images/search')
+  const data = await response.json()
+  const url = data[0].url
+  await Image.prefetch(url)
+  return url
+}
+
 const App = () => {
+  const [loading, setLoading] = useState(true)
+  const [uri, setUri] = useState(null)
+
+  useEffect(async () => {
+    const url = await getRandomKitty()
+    setUri(url)
+    setLoading(false)
+  }, [])
+
   return (
     <Wrapper>
-      <Text>Hello, Anika</Text>
-      <Button label="my button" onPress={() => alert('Hello')} />
-      <Button label="my other button" onPress={() => alert('Hello too')} color="red" />
+      <StatusBar barStyle="light-content" />
+      <Title>KitKats</Title>
+      <Polaroid uri={uri} loading={loading} />
+      <Button
+        label="Next"
+        onPress={async () => {
+          setLoading(true)
+          const url = await getRandomKitty()
+          setUri(url)
+          setLoading(false)
+        }}
+      />
     </Wrapper>
   )
 }
