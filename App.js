@@ -20,27 +20,24 @@ const getRandomKitty = async () => {
 }
 
 const App = () => {
-  const [loading, setLoading] = useState(true)
   const [uri, setUri] = useState(null)
 
   useEffect(async () => {
     const url = await getRandomKitty()
     setUri(url)
-    setLoading(false)
   }, [])
 
   return (
     <Wrapper>
       <StatusBar barStyle="light-content" />
       <Title>KitKats</Title>
-      <Polaroid uri={uri} loading={loading} />
+      <Polaroid uri={uri} loading={!uri} />
       <Button
         label="Next"
         onPress={async () => {
-          setLoading(true)
+          setUri(false)
           const url = await getRandomKitty()
           setUri(url)
-          setLoading(false)
         }}
       />
     </Wrapper>
