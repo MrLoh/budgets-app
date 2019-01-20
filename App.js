@@ -1,2 +1,2 @@
-import App from './kittyapp'
-export default App
+import BeerApp from './beerapp'
+export default BeerApp
