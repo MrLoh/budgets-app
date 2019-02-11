@@ -9,10 +9,11 @@
   },
   "dependencies": {
     "expo": "^31.0.6",
+    "fuse.js": "^3.4.1",
     "react": "16.7.0-alpha.2",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31-with-hooks-dangerzone.tar.gz",
-    "styled-components": "^4.1.2",
-    "styled-css": "^1.1.0"
+    "shortid": "^2.2.14",
+    "styled-components": "^4.1.2"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",

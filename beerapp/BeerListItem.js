@@ -1,8 +1,11 @@
 import styled from 'styled-components'
 import React from 'react'
+import { AntDesign } from '@expo/vector-icons'
 
-const Wrapper = styled.View`
-  background-color: #eee;
+import { BEER_COLORS } from './theme'
+
+const Wrapper = styled.TouchableOpacity`
+  background-color: ${(p) => BEER_COLORS[p.colorValue || 0]};
   padding: 10px;
   margin: 7.5px 15px;
   border-radius: 1.5px;
@@ -30,9 +33,28 @@ const Star = styled.View`
   margin: 0 2px;
 `
 
-export const BeerListItem = ({ name, brewery, style, rating }) => {
+const DeleteButton = styled.TouchableOpacity`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  justify-content: center;
+  align-items: center;
+`
+
+export const BeerListItem = ({
+  id,
+  name,
+  brewery,
+  style,
+  rating,
+  colorValue,
+  onPress,
+  onDelete,
+}) => {
   return (
-    <Wrapper>
+    <Wrapper colorValue={colorValue} onPress={() => onPress(id)}>
       <Name>{name}</Name>
       <RatingWrapper>
         {[1, 2, 3, 4, 5].map((i) => (
@@ -41,6 +63,9 @@ export const BeerListItem = ({ name, brewery, style, rating }) => {
       </RatingWrapper>
       <BeerAttribute>{brewery}</BeerAttribute>
       <BeerAttribute>{style}</BeerAttribute>
+      <DeleteButton onPress={() => onDelete(id)}>
+        <AntDesign name="close" size={20} color="black" />
+      </DeleteButton>
     </Wrapper>
   )
 }
