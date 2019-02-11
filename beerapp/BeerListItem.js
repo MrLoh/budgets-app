@@ -35,9 +35,9 @@ const Star = styled.View`
 
 const DeleteButton = styled.TouchableOpacity`
   width: 20px;
-  height: 20px;
+  height: 30px;
   position: absolute;
-  top: 5px;
+  top: 0px;
   right: 5px;
   justify-content: center;
   align-items: center;

@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import styled from 'styled-components'
 import Fuse from 'fuse.js'
+import { AntDesign } from '@expo/vector-icons'
 
 import { BeerListItem } from './BeerListItem'
 import { useDebounce } from './utils'
@@ -20,13 +21,16 @@ const ListWrapper = styled.ScrollView`
 `
 
 const AddButton = styled.TouchableOpacity`
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  background-color: black;
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+  background-color: gray;
   position: absolute;
   right: 30px;
   bottom: 40px;
+  padding-top: 5px;
+  justify-content: center;
+  align-items: center;
 `
 
 const filterBeers = (beerList, searchTerm) => {
@@ -60,7 +64,9 @@ export const BeerListView = ({ beerList, onDeleteBeer, onAddBeer, onOpenBeer }) 
           )
         })}
       </ListWrapper>
-      <AddButton onPress={onAddBeer} />
+      <AddButton onPress={onAddBeer}>
+        <AntDesign name="plus" size={60} color="white" />
+      </AddButton>
     </Wrapper>
   )
 }
