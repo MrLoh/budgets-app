@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Dimensions, Slider } from 'react-native'
+import { Dimensions, Slider, Alert } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 
 import { BEER_COLORS } from './theme'
@@ -114,7 +114,19 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
         >
           <Save>SAVE</Save>
         </SaveButton>
-        <DeleteButton onPress={() => onDeleteBeer(activeBeerItem.id)}>
+        <DeleteButton
+          onPress={() =>
+            Alert.alert(
+              'Delete Beer?',
+              'This action cannot be undone.',
+              [
+                { text: 'Cancel', style: 'cancel' },
+                { text: 'Delete', onPress: () => onDeleteBeer(activeBeerItem.id) },
+              ],
+              { cancelable: true }
+            )
+          }
+        >
           <Delete>DELETE</Delete>
         </DeleteButton>
         <BeerGlassIconWrapper>
