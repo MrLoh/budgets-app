@@ -27,9 +27,7 @@ import { usePersistedState } from './utils'
 // ]
 
 const ActivityWrapper = styled.View`
-  width: 200px;
-  height: 200px;
-  background-color: gray;
+  background-color: #fff8c3;
   align-items: center;
   justify-content: center;
 `
