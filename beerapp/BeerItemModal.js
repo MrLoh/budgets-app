@@ -66,6 +66,7 @@ const Delete = styled.Text`
 const BeerGlassIconWrapper = styled.View`
   /* margin: 5px 0px; */
   align-items: center;
+  padding: 0 0 10px 0;
 `
 
 const BeerAttribute = styled.TextInput`
@@ -111,6 +112,7 @@ const Rating = styled.TouchableOpacity`
 export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerItem }) => {
   const [name, onSetName] = useState(activeBeerItem.name || '')
   const [brewery, onSetBrewery] = useState(activeBeerItem.brewery || '')
+  const [location, onSetLocation] = useState(activeBeerItem.location || '')
   const [style, onSetStyle] = useState(activeBeerItem.style || '')
   const [rating, onSetRating] = useState(activeBeerItem.rating || 0)
   const [colorValue, onSetColorValue] = useState(activeBeerItem.colorValue || 0)
@@ -120,7 +122,9 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
     <ModalWrapper onPress={onDismiss}>
       <ModalCard colorValue={colorValue} onPress={Keyboard.dismiss}>
         <SaveButton
-          onPress={() => onSaveBeer({ name, brewery, style, rating, colorValue, notes, glassType })}
+          onPress={() =>
+            onSaveBeer({ name, brewery, location, style, rating, colorValue, notes, glassType })
+          }
         >
           <Save>SAVE</Save>
         </SaveButton>
@@ -140,10 +144,11 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
           <Delete>DELETE</Delete>
         </DeleteButton>
         <BeerGlassIconWrapper>
-          <BeerGlassIcon glassType={glassType} height={80} color="white" />
+          <BeerGlassIcon glassType={glassType} height={80} />
         </BeerGlassIconWrapper>
         <BeerAttributeName placeholder="Name" onChangeText={onSetName} value={name} />
         <BeerAttribute placeholder="Brewery" onChangeText={onSetBrewery} value={brewery} />
+        <BeerAttribute placeholder="Location" onChangeText={onSetLocation} value={location} />
         <BeerAttribute placeholder="Style" onChangeText={onSetStyle} value={style} />
         <BeerAttributeNotes
           placeholder="Notes"

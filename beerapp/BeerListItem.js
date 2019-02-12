@@ -19,6 +19,7 @@ const ContentWrapper = styled.View`
 
 const IconWrapper = styled.View`
   margin: 0 10px 0 0;
+  justify-content: center;
 `
 
 const RatingWrapper = styled.View`
@@ -37,10 +38,16 @@ const BeerAttribute = styled.Text`
   font-size: 13;
 `
 
+const BeerAttributeLocation = styled.Text`
+  font-size: 13;
+  font-style: italic;
+`
+
 export const BeerListItem = ({
   id,
   name,
   brewery,
+  location,
   style,
   rating,
   colorValue,
@@ -50,10 +57,13 @@ export const BeerListItem = ({
   return (
     <Wrapper colorValue={colorValue} onPress={() => onPress(id)}>
       <IconWrapper>
-        <BeerGlassIcon glassType={glassType} />
+        <BeerGlassIcon glassType={glassType} height={70} />
       </IconWrapper>
       <ContentWrapper>
         <Name>{name}</Name>
+        <BeerAttribute>{brewery}</BeerAttribute>
+        <BeerAttributeLocation>{location}</BeerAttributeLocation>
+        <BeerAttribute>{style}</BeerAttribute>
         <RatingWrapper>
           {[1, 2, 3, 4, 5].map((i) =>
             rating >= i ? (
@@ -61,8 +71,6 @@ export const BeerListItem = ({
             ) : null
           )}
         </RatingWrapper>
-        <BeerAttribute>{brewery}</BeerAttribute>
-        <BeerAttribute>{style}</BeerAttribute>
       </ContentWrapper>
     </Wrapper>
   )
