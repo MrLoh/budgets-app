@@ -90,7 +90,7 @@ const Rating = styled.TouchableOpacity`
   align-items: center;
 `
 
-export const BeerItemModal = ({ onDismiss, onSaveBeer, activeBeerItem }) => {
+export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerItem }) => {
   const [name, onSetName] = useState(activeBeerItem.name || '')
   const [brewery, onSetBrewery] = useState(activeBeerItem.brewery || '')
   const [style, onSetStyle] = useState(activeBeerItem.style || '')
@@ -102,9 +102,7 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, activeBeerItem }) => {
         <SaveButton onPress={() => onSaveBeer({ name, brewery, style, rating, colorValue })}>
           <Save>SAVE</Save>
         </SaveButton>
-        <DeleteButton
-        // onPress={() => onSaveBeer({ name, brewery, style, rating, colorValue })}
-        >
+        <DeleteButton onPress={() => onDeleteBeer(activeBeerItem.id)}>
           <Delete>DELETE</Delete>
         </DeleteButton>
         <BeerAttribute placeholder="Name" onChangeText={onSetName} value={name} />

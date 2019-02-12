@@ -49,7 +49,7 @@ const filterBeers = (beerList, searchTerm) => {
   return fuse.search(searchTerm)
 }
 
-export const BeerListView = ({ beerList, onDeleteBeer, onAddBeer, onOpenBeer }) => {
+export const BeerListView = ({ beerList, onAddBeer, onOpenBeer }) => {
   const [searchTerm, onSetSearchTerm] = useState('')
   const debouncedSearchTerm = useDebounce(searchTerm, 500)
   const filteredBeerList = useMemo(() => filterBeers(beerList, debouncedSearchTerm), [
@@ -64,8 +64,12 @@ export const BeerListView = ({ beerList, onDeleteBeer, onAddBeer, onOpenBeer }) 
           return (
             <BeerListItem
               key={beerItem.id}
-              {...beerItem}
-              onDelete={onDeleteBeer}
+              id={beerItem.id}
+              name={beerItem.name}
+              brewery={beerItem.brewery}
+              style={beerItem.style}
+              rating={beerItem.rating}
+              colorValue={beerItem.colorValue}
               onPress={onOpenBeer}
             />
           )

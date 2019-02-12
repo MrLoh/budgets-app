@@ -41,10 +41,6 @@ const App = () => {
     <>
       <BeerListView
         beerList={beerList}
-        onDeleteBeer={(id) => {
-          const itemIndex = beerList.findIndex((item) => item.id === id)
-          setBeerList([...beerList.slice(0, itemIndex), ...beerList.slice(itemIndex + 1)])
-        }}
         onAddBeer={() => {
           setActiveBeerItem({})
         }}
@@ -70,6 +66,11 @@ const App = () => {
               const newBeerItem = { id: shortid.generate(), ...beerValues }
               setBeerList([...beerList, newBeerItem])
             }
+            setActiveBeerItem(undefined)
+          }}
+          onDeleteBeer={(id) => {
+            const itemIndex = beerList.findIndex((item) => item.id === id)
+            setBeerList([...beerList.slice(0, itemIndex), ...beerList.slice(itemIndex + 1)])
             setActiveBeerItem(undefined)
           }}
           activeBeerItem={activeBeerItem}

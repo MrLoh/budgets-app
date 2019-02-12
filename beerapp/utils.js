@@ -36,19 +36,19 @@ export const useDebounce = (value, delay) => {
 }
 
 export const usePersistedState = (key, defaultValue) => {
-  {
-    const [value, setValue] = useState(defaultValue)
-    const [initialized, setInitialized] = useState(false)
-    useEffect(async () => {
-      const storedValue = await AsyncStorage.getItem(key)
-      if (storedValue) setValue(JSON.parse(storedValue))
-      else await AsyncStorage.setItem(key, JSON.stringify(defaultValue))
-      setInitialized(true)
-    }, [])
-    const setAndStoreValue = async (newValue) => {
-      setValue(newValue)
-      await AsyncStorage.setItem(key, JSON.stringify(newValue))
-    }
-    return [value, setAndStoreValue, initialized]
+  const [value, setValue] = useState(defaultValue)
+  const [initialized, setInitialized] = useState(false)
+  useEffect(async () => {
+    // await AsyncStorage.deleteItem(key)
+    const storedValue = await AsyncStorage.getItem(key)
+    if (storedValue) setValue(JSON.parse(storedValue))
+    else await AsyncStorage.setItem(key, JSON.stringify(defaultValue))
+    setInitialized(true)
+  }, [])
+  const setAndStoreValue = async (newValue) => {
+    setValue(newValue)
+    if (newValue === null) await AsyncStorage.deleteItem(key)
+    else await AsyncStorage.setItem(key, JSON.stringify(newValue))
   }
+  return [value, setAndStoreValue, initialized]
 }
