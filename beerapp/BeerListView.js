@@ -8,26 +8,33 @@ import { useDebounce } from './utils'
 
 const Wrapper = styled.SafeAreaView`
   flex: 1;
+  margin-bottom: -50;
 `
 
 const SearchField = styled.TextInput`
   font-weight: 700;
-  font-size: 15px;
-  margin: 5px;
+  font-size: 20px;
+  margin: 15px;
 `
 
 const ListWrapper = styled.ScrollView`
   flex: 1;
 `
 
+const EndSpace = styled.View`
+  background-color: white;
+  height: 50px;
+  width: 100%;
+`
+
 const AddButton = styled.TouchableOpacity`
-  width: 70px;
-  height: 70px;
-  border-radius: 35px;
+  width: 90px;
+  height: 90px;
+  border-radius: 45px;
   background-color: lightgray;
   position: absolute;
-  right: 30px;
-  bottom: 40px;
+  right: 15px;
+  bottom: 65px;
   padding-top: 5px;
   justify-content: center;
   align-items: center;
@@ -63,9 +70,10 @@ export const BeerListView = ({ beerList, onDeleteBeer, onAddBeer, onOpenBeer }) 
             />
           )
         })}
+        <EndSpace />
       </ListWrapper>
       <AddButton onPress={onAddBeer}>
-        <AntDesign name="plus" size={60} color="white" />
+        <AntDesign name="plus" size={65} color="white" />
       </AddButton>
     </Wrapper>
   )

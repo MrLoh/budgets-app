@@ -7,8 +7,8 @@ import { BEER_COLORS } from './theme'
 const Wrapper = styled.TouchableOpacity`
   background-color: ${(p) => BEER_COLORS[p.colorValue || 0]};
   padding: 10px;
-  margin: 7.5px 15px;
-  border-radius: 1.5px;
+  /* margin: 7.5px 15px; */
+  /* border-radius: 1.5px; */
 `
 
 const RatingWrapper = styled.View`
