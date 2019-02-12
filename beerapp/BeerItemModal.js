@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Dimensions, Slider, Alert } from 'react-native'
+import { Dimensions, Slider, Alert, Keyboard } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 
 import { BEER_COLORS } from './theme'
@@ -74,6 +74,18 @@ const BeerAttribute = styled.TextInput`
   margin: 5px;
 `
 
+const BeerAttributeName = styled.TextInput`
+  font-weight: 900;
+  font-size: 15px;
+  margin: 5px;
+`
+
+const BeerAttributeNotes = styled.TextInput`
+  font-weight: 500;
+  font-size: 15px;
+  margin: 5px;
+`
+
 const BeerAttributeDescription = styled.Text`
   font-weight: 700;
   font-size: 12px;
@@ -106,7 +118,7 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
   const [glassType, onSetGlassType] = useState(activeBeerItem.glassType || 0)
   return (
     <ModalWrapper onPress={onDismiss}>
-      <ModalCard colorValue={colorValue}>
+      <ModalCard colorValue={colorValue} onPress={Keyboard.dismiss}>
         <SaveButton
           onPress={() => onSaveBeer({ name, brewery, style, rating, colorValue, notes, glassType })}
         >
@@ -130,9 +142,16 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
         <BeerGlassIconWrapper>
           <BeerGlassIcon glassType={glassType} height={80} color="white" />
         </BeerGlassIconWrapper>
-        <BeerAttribute placeholder="Name" onChangeText={onSetName} value={name} />
+        <BeerAttributeName placeholder="Name" onChangeText={onSetName} value={name} />
         <BeerAttribute placeholder="Brewery" onChangeText={onSetBrewery} value={brewery} />
         <BeerAttribute placeholder="Style" onChangeText={onSetStyle} value={style} />
+        <BeerAttributeNotes
+          placeholder="Notes"
+          multiline={true}
+          maxLength={140}
+          onChangeText={onSetNotes}
+          value={notes}
+        />
         <BeerAttributeDescription>Beer Rating:</BeerAttributeDescription>
         <RatingWrapper>
           {[1, 2, 3, 4, 5].map((i) => (
@@ -154,13 +173,6 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
           onValueChange={onSetGlassType}
           maximumValue={glassPath.length - 1}
           step={1}
-        />
-        <BeerAttribute
-          placeholder="Notes"
-          multiline={true}
-          numberOfLines={4}
-          onChangeText={onSetNotes}
-          value={notes}
         />
       </ModalCard>
     </ModalWrapper>
