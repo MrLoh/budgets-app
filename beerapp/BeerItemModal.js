@@ -4,7 +4,7 @@ import { Dimensions, Slider, Alert } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 
 import { BEER_COLORS } from './theme'
-import { BeerGlassIcon } from './BeerGlassIcons'
+import { BeerGlassIcon, glassPath } from './BeerGlassIcons'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -67,8 +67,6 @@ const BeerGlassIconWrapper = styled.View`
   /* margin: 5px 0px; */
   align-items: center;
 `
-
-const BEER_GLASSES = ['mug', 'bottle', 'flute']
 
 const BeerAttribute = styled.TextInput`
   font-weight: 700;
@@ -154,7 +152,7 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
         <Slider
           value={glassType}
           onValueChange={onSetGlassType}
-          maximumValue={BEER_GLASSES.length - 1}
+          maximumValue={glassPath.length - 1}
           step={1}
         />
         <BeerAttribute
