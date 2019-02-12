@@ -46,7 +46,7 @@ const filterBeers = (beerList, searchTerm) => {
   if (!searchTerm) {
     return beerList
   }
-  const options = { keys: ['name', 'brewery', 'style', 'location'] }
+  const options = { keys: ['name', 'brewery', 'style', 'location'], threshold: 0.3 }
   const fuse = new Fuse(beerList, options)
   return fuse.search(searchTerm)
 }
