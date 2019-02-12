@@ -1,6 +1,6 @@
 export const BEER_COLORS = [
   '#FFF8C3',
-  '#FFECA0',
+  '#FCE6A5',
   '#FEDA7C',
   '#F7BE4A',
   '#F5A658',

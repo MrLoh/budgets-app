@@ -46,6 +46,22 @@ const Save = styled.Text`
   color: #000;
 `
 
+const DeleteButton = styled.TouchableOpacity`
+  width: 90px;
+  height: 30px;
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+  padding: 5px;
+  border-radius: 2px;
+`
+
+const Delete = styled.Text`
+  font-weight: 700;
+  font-size: 15px;
+  color: red;
+`
+
 const BeerAttribute = styled.TextInput`
   font-weight: 700;
   font-size: 15px;
@@ -86,6 +102,11 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, activeBeerItem }) => {
         <SaveButton onPress={() => onSaveBeer({ name, brewery, style, rating, colorValue })}>
           <Save>SAVE</Save>
         </SaveButton>
+        <DeleteButton
+        // onPress={() => onSaveBeer({ name, brewery, style, rating, colorValue })}
+        >
+          <Delete>DELETE</Delete>
+        </DeleteButton>
         <BeerAttribute placeholder="Name" onChangeText={onSetName} value={name} />
         <BeerAttribute placeholder="Brewery" onChangeText={onSetBrewery} value={brewery} />
         <BeerAttribute placeholder="Style" onChangeText={onSetStyle} value={style} />
