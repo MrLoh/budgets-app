@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Dimensions, Slider } from 'react-native'
+import { AntDesign } from '@expo/vector-icons'
 
 import { BEER_COLORS } from './theme'
 
@@ -59,11 +60,11 @@ const RatingWrapper = styled.View`
 `
 
 const Rating = styled.TouchableOpacity`
-  width: 14px;
-  height: 14px;
-  background-color: ${(p) => (p.active ? '#000' : '#bbb')};
-  border-radius: 7px;
-  margin: 5px 5px;
+  width: 22px;
+  height: 22px;
+  padding: 2px;
+  justify-content: center;
+  align-items: center;
 `
 
 export const BeerItemModal = ({ onDismiss, onSaveBeer, activeBeerItem }) => {
@@ -83,7 +84,9 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, activeBeerItem }) => {
         <BeerAttribute placeholder="Style" onChangeText={onSetStyle} value={style} />
         <RatingWrapper>
           {[1, 2, 3, 4, 5].map((i) => (
-            <Rating active={rating >= i} onPress={() => onSetRating(i)} key={i} />
+            <Rating active={rating >= i} onPress={() => onSetRating(i)} key={i}>
+              <AntDesign name={'star'} size={17} color={rating >= i ? '#000' : '#bbb'} key={i} />
+            </Rating>
           ))}
         </RatingWrapper>
         <Slider

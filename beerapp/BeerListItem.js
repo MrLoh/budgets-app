@@ -26,11 +26,12 @@ const BeerAttribute = styled.Text`
   color: #666;
 `
 const Star = styled.View`
-  width: 7px;
-  height: 7px;
-  background-color: ${(p) => (p.active ? '#000' : '#bbb')};
+  width: 12px;
+  height: 12px;
   border-radius: 3.5px;
-  margin: 0 2px;
+  margin: 0 1.5px;
+  justify-content: center;
+  align-items: center;
 `
 
 const DeleteButton = styled.TouchableOpacity`
@@ -57,9 +58,11 @@ export const BeerListItem = ({
     <Wrapper colorValue={colorValue} onPress={() => onPress(id)}>
       <Name>{name}</Name>
       <RatingWrapper>
-        {[1, 2, 3, 4, 5].map((i) => (
-          <Star active={rating >= i} key={i} />
-        ))}
+        {[1, 2, 3, 4, 5].map((i) =>
+          rating >= i ? (
+            <AntDesign name={'star'} size={12} color={rating >= i ? '#000' : '#bbb'} key={i} />
+          ) : null
+        )}
       </RatingWrapper>
       <BeerAttribute>{brewery}</BeerAttribute>
       <BeerAttribute>{style}</BeerAttribute>
