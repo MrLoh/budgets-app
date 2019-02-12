@@ -3,12 +3,22 @@ import React from 'react'
 import { AntDesign } from '@expo/vector-icons'
 
 import { BEER_COLORS } from './theme'
+import { BeerGlassIcon } from './BeerGlassIcons'
 
 const Wrapper = styled.TouchableOpacity`
   background-color: ${(p) => BEER_COLORS[p.colorValue || 0]};
   padding: 10px;
   /* margin: 7.5px 15px; */
   /* border-radius: 1.5px; */
+  flex-direction: row;
+`
+
+const ContentWrapper = styled.View`
+  flex-direction: column;
+`
+
+const IconWrapper = styled.View`
+  margin: 0 10px 0 0;
 `
 
 const RatingWrapper = styled.View`
@@ -27,16 +37,6 @@ const BeerAttribute = styled.Text`
   font-size: 13;
 `
 
-const DeleteButton = styled.TouchableOpacity`
-  width: 20px;
-  height: 30px;
-  position: absolute;
-  top: 0px;
-  right: 5px;
-  justify-content: center;
-  align-items: center;
-`
-
 export const BeerListItem = ({
   id,
   name,
@@ -44,24 +44,26 @@ export const BeerListItem = ({
   style,
   rating,
   colorValue,
+  glassType,
   onPress,
-  onDelete,
 }) => {
   return (
     <Wrapper colorValue={colorValue} onPress={() => onPress(id)}>
-      <Name>{name}</Name>
-      <RatingWrapper>
-        {[1, 2, 3, 4, 5].map((i) =>
-          rating >= i ? (
-            <AntDesign name={'star'} size={14} color={rating >= i ? '#000' : '#bbb'} key={i} />
-          ) : null
-        )}
-      </RatingWrapper>
-      <BeerAttribute>{brewery}</BeerAttribute>
-      <BeerAttribute>{style}</BeerAttribute>
-      <DeleteButton onPress={() => onDelete(id)}>
-        <AntDesign name="close" size={20} color="black" />
-      </DeleteButton>
+      <IconWrapper>
+        <BeerGlassIcon glassType={glassType} />
+      </IconWrapper>
+      <ContentWrapper>
+        <Name>{name}</Name>
+        <RatingWrapper>
+          {[1, 2, 3, 4, 5].map((i) =>
+            rating >= i ? (
+              <AntDesign name={'star'} size={14} color={rating >= i ? '#000' : '#bbb'} key={i} />
+            ) : null
+          )}
+        </RatingWrapper>
+        <BeerAttribute>{brewery}</BeerAttribute>
+        <BeerAttribute>{style}</BeerAttribute>
+      </ContentWrapper>
     </Wrapper>
   )
 }

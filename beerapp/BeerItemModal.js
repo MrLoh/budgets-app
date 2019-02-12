@@ -4,6 +4,7 @@ import { Dimensions, Slider } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 
 import { BEER_COLORS } from './theme'
+import { BeerGlassIcon } from './BeerGlassIcons'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -62,6 +63,13 @@ const Delete = styled.Text`
   color: red;
 `
 
+const BeerGlassIconWrapper = styled.View`
+  /* margin: 5px 0px; */
+  align-items: center;
+`
+
+const BEER_GLASSES = ['mug', 'bottle', 'flute']
+
 const BeerAttribute = styled.TextInput`
   font-weight: 700;
   font-size: 15px;
@@ -97,15 +105,21 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
   const [rating, onSetRating] = useState(activeBeerItem.rating || 0)
   const [colorValue, onSetColorValue] = useState(activeBeerItem.colorValue || 0)
   const [notes, onSetNotes] = useState(activeBeerItem.notes || '')
+  const [glassType, onSetGlassType] = useState(activeBeerItem.glassType || 0)
   return (
     <ModalWrapper onPress={onDismiss}>
       <ModalCard colorValue={colorValue}>
-        <SaveButton onPress={() => onSaveBeer({ name, brewery, style, rating, colorValue, notes })}>
+        <SaveButton
+          onPress={() => onSaveBeer({ name, brewery, style, rating, colorValue, notes, glassType })}
+        >
           <Save>SAVE</Save>
         </SaveButton>
         <DeleteButton onPress={() => onDeleteBeer(activeBeerItem.id)}>
           <Delete>DELETE</Delete>
         </DeleteButton>
+        <BeerGlassIconWrapper>
+          <BeerGlassIcon glassType={glassType} height={80} color="white" />
+        </BeerGlassIconWrapper>
         <BeerAttribute placeholder="Name" onChangeText={onSetName} value={name} />
         <BeerAttribute placeholder="Brewery" onChangeText={onSetBrewery} value={brewery} />
         <BeerAttribute placeholder="Style" onChangeText={onSetStyle} value={style} />
@@ -122,6 +136,13 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
           value={colorValue}
           onValueChange={onSetColorValue}
           maximumValue={BEER_COLORS.length - 1}
+          step={1}
+        />
+        <BeerAttributeDescription>Glass Icon:</BeerAttributeDescription>
+        <Slider
+          value={glassType}
+          onValueChange={onSetGlassType}
+          maximumValue={BEER_GLASSES.length - 1}
           step={1}
         />
         <BeerAttribute

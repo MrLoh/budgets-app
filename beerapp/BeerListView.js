@@ -6,9 +6,11 @@ import { AntDesign } from '@expo/vector-icons'
 import { BeerListItem } from './BeerListItem'
 import { useDebounce } from './utils'
 
+const BOTTOM_MARGIN = 50
+
 const Wrapper = styled.SafeAreaView`
   flex: 1;
-  margin-bottom: -50;
+  margin-bottom: -${BOTTOM_MARGIN}px;
 `
 
 const SearchField = styled.TextInput`
@@ -23,7 +25,7 @@ const ListWrapper = styled.ScrollView`
 
 const EndSpace = styled.View`
   background-color: white;
-  height: 50px;
+  height: ${BOTTOM_MARGIN}px;
   width: 100%;
 `
 
@@ -64,12 +66,13 @@ export const BeerListView = ({ beerList, onAddBeer, onOpenBeer }) => {
           return (
             <BeerListItem
               key={beerItem.id}
-              id={beerItem.id}
-              name={beerItem.name}
-              brewery={beerItem.brewery}
-              style={beerItem.style}
-              rating={beerItem.rating}
-              colorValue={beerItem.colorValue}
+              // id={beerItem.id}
+              // name={beerItem.name}
+              // brewery={beerItem.brewery}
+              // style={beerItem.style}
+              // rating={beerItem.rating}
+              // colorValue={beerItem.colorValue}
+              {...beerItem}
               onPress={onOpenBeer}
             />
           )
