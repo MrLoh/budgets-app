@@ -96,10 +96,11 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
   const [style, onSetStyle] = useState(activeBeerItem.style || '')
   const [rating, onSetRating] = useState(activeBeerItem.rating || 0)
   const [colorValue, onSetColorValue] = useState(activeBeerItem.colorValue || 0)
+  const [notes, onSetNotes] = useState(activeBeerItem.notes || '')
   return (
     <ModalWrapper onPress={onDismiss}>
       <ModalCard colorValue={colorValue}>
-        <SaveButton onPress={() => onSaveBeer({ name, brewery, style, rating, colorValue })}>
+        <SaveButton onPress={() => onSaveBeer({ name, brewery, style, rating, colorValue, notes })}>
           <Save>SAVE</Save>
         </SaveButton>
         <DeleteButton onPress={() => onDeleteBeer(activeBeerItem.id)}>
@@ -122,6 +123,13 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
           onValueChange={onSetColorValue}
           maximumValue={BEER_COLORS.length - 1}
           step={1}
+        />
+        <BeerAttribute
+          placeholder="Notes"
+          multiline={true}
+          numberOfLines={4}
+          onChangeText={onSetNotes}
+          value={notes}
         />
       </ModalCard>
     </ModalWrapper>
