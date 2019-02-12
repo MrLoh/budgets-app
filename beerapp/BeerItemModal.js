@@ -43,13 +43,20 @@ const SaveButton = styled.TouchableOpacity`
 const Save = styled.Text`
   font-weight: 700;
   font-size: 15px;
-  color: red;
+  color: #000;
 `
 
 const BeerAttribute = styled.TextInput`
   font-weight: 700;
   font-size: 15px;
   margin: 5px;
+`
+
+const BeerAttributeDescription = styled.Text`
+  font-weight: 700;
+  font-size: 12px;
+  margin: 5px 5px 0px 5px;
+  color: #999;
 `
 
 const RatingWrapper = styled.View`
@@ -77,18 +84,20 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, activeBeerItem }) => {
     <ModalWrapper onPress={onDismiss}>
       <ModalCard colorValue={colorValue}>
         <SaveButton onPress={() => onSaveBeer({ name, brewery, style, rating, colorValue })}>
-          <Save>Save</Save>
+          <Save>SAVE</Save>
         </SaveButton>
         <BeerAttribute placeholder="Name" onChangeText={onSetName} value={name} />
         <BeerAttribute placeholder="Brewery" onChangeText={onSetBrewery} value={brewery} />
         <BeerAttribute placeholder="Style" onChangeText={onSetStyle} value={style} />
+        <BeerAttributeDescription>Beer Rating:</BeerAttributeDescription>
         <RatingWrapper>
           {[1, 2, 3, 4, 5].map((i) => (
             <Rating active={rating >= i} onPress={() => onSetRating(i)} key={i}>
-              <AntDesign name={'star'} size={17} color={rating >= i ? '#000' : '#bbb'} key={i} />
+              <AntDesign name={'star'} size={17} color={rating >= i ? '#000' : '#999'} key={i} />
             </Rating>
           ))}
         </RatingWrapper>
+        <BeerAttributeDescription>Beer Color:</BeerAttributeDescription>
         <Slider
           value={colorValue}
           onValueChange={onSetColorValue}

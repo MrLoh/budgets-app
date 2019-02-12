@@ -13,25 +13,18 @@ const Wrapper = styled.TouchableOpacity`
 
 const RatingWrapper = styled.View`
   flex-direction: row;
-  margin: 0 -2px;
+  margin: 2px 0px;
   height: 15px;
   align-items: center;
 `
 
 const Name = styled.Text`
   font-weight: 700;
+  font-size: 15;
 `
 
 const BeerAttribute = styled.Text`
-  color: #666;
-`
-const Star = styled.View`
-  width: 12px;
-  height: 12px;
-  border-radius: 3.5px;
-  margin: 0 1.5px;
-  justify-content: center;
-  align-items: center;
+  font-size: 13;
 `
 
 const DeleteButton = styled.TouchableOpacity`
@@ -60,7 +53,7 @@ export const BeerListItem = ({
       <RatingWrapper>
         {[1, 2, 3, 4, 5].map((i) =>
           rating >= i ? (
-            <AntDesign name={'star'} size={12} color={rating >= i ? '#000' : '#bbb'} key={i} />
+            <AntDesign name={'star'} size={14} color={rating >= i ? '#000' : '#bbb'} key={i} />
           ) : null
         )}
       </RatingWrapper>

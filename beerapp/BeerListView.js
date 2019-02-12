@@ -24,7 +24,7 @@ const AddButton = styled.TouchableOpacity`
   width: 70px;
   height: 70px;
   border-radius: 35px;
-  background-color: gray;
+  background-color: lightgray;
   position: absolute;
   right: 30px;
   bottom: 40px;
