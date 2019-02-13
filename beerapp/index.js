@@ -50,7 +50,8 @@ const App = () => {
           }}
           onDeleteBeer={(id) => {
             const itemIndex = beerList.findIndex((item) => item.id === id)
-            setBeerList([...beerList.slice(0, itemIndex), ...beerList.slice(itemIndex + 1)])
+            if (itemIndex >= 0)
+              setBeerList([...beerList.slice(0, itemIndex), ...beerList.slice(itemIndex + 1)])
             setActiveBeerItem(undefined)
           }}
           activeBeerItem={activeBeerItem}
