@@ -1,30 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import shortid from 'shortid'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, StatusBar } from 'react-native'
 import styled from 'styled-components'
 
 import { BeerListView } from './BeerListView'
 import { BeerItemModal } from './BeerItemModal'
 import { usePersistedState } from './utils'
-
-// const defaultBeerList = [
-//   {
-//     id: shortid.generate(),
-//     name: 'Lakefront IPA',
-//     brewery: 'Lakefront',
-//     style: 'IPA',
-//     rating: 5,
-//     colorValue: 5,
-//   },
-//   {
-//     id: shortid.generate(),
-//     name: 'Gumballhead',
-//     brewery: 'Three Floyds',
-//     style: 'wheat',
-//     rating: 4,
-//     colorValue: 2,
-//   },
-// ]
 
 const ActivityWrapper = styled.View`
   background-color: #fff8c3;
@@ -37,6 +18,7 @@ const App = () => {
   const [activeBeerItem, setActiveBeerItem] = useState()
   return initialized ? (
     <>
+      <StatusBar barStyle="light-content" />
       <BeerListView
         beerList={beerList}
         onAddBeer={() => {

@@ -12,11 +12,13 @@ const BOTTOM_MARGIN = 50
 const Wrapper = styled.SafeAreaView`
   flex: 1;
   margin-bottom: -${BOTTOM_MARGIN}px;
+  background-color: black;
 `
 
 const SearchField = styled.TextInput`
   font-weight: 700;
   font-size: 20px;
+  color: white;
   margin: 15px;
 `
 
@@ -25,7 +27,7 @@ const ListWrapper = styled.ScrollView`
 `
 
 const EndSpace = styled.View`
-  background-color: white;
+  background-color: black;
   height: ${BOTTOM_MARGIN}px;
   width: 100%;
 `
@@ -34,7 +36,7 @@ const AddButton = styled.TouchableOpacity`
   width: 90px;
   height: 90px;
   border-radius: 45px;
-  background-color: lightgray;
+  background-color: black;
   position: absolute;
   right: 15px;
   bottom: 65px;
@@ -61,7 +63,12 @@ export const BeerListView = ({ beerList, onAddBeer, onOpenBeer }) => {
   ])
   return (
     <Wrapper>
-      <SearchField placeholder="Search" onChangeText={onSetSearchTerm} value={searchTerm} />
+      <SearchField
+        placeholder="Search"
+        placeholderTextColor="white"
+        onChangeText={onSetSearchTerm}
+        value={searchTerm}
+      />
       <ListWrapper>
         {filteredBeerList.map((beerItem) => {
           return (
