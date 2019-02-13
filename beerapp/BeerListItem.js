@@ -63,9 +63,7 @@ export const BeerListItem = ({
       </IconWrapper>
       <ContentWrapper>
         <Name>{name}</Name>
-        <BeerAttribute>
-          {brewery} || {location}
-        </BeerAttribute>
+        <BeerAttribute>{[brewery, location].filter((w) => w).join(' || ')}</BeerAttribute>
         <BeerAttribute>{style}</BeerAttribute>
         <RatingWrapper>
           {[1, 2, 3, 4, 5].map((i) =>
