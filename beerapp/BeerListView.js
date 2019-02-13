@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react'
 import styled from 'styled-components'
 import Fuse from 'fuse.js'
 import { AntDesign } from '@expo/vector-icons'
+import sortBy from 'lodash/sortBy'
 
 import { BeerListItem } from './BeerListItem'
 import { useDebounce } from './utils'
@@ -44,7 +45,7 @@ const AddButton = styled.TouchableOpacity`
 
 const filterBeers = (beerList, searchTerm) => {
   if (!searchTerm) {
-    return beerList
+    return sortBy(beerList, ['name'])
   }
   const options = { keys: ['name', 'brewery', 'style', 'location'], threshold: 0.3 }
   const fuse = new Fuse(beerList, options)
