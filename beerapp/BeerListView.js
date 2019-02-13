@@ -3,44 +3,80 @@ import styled from 'styled-components'
 import Fuse from 'fuse.js'
 import { AntDesign } from '@expo/vector-icons'
 import sortBy from 'lodash/sortBy'
+import { BlurView } from 'expo'
 
 import { BeerListItem } from './BeerListItem'
 import { useDebounce } from './utils'
+import { getSafeAreaInsets } from './safe-area'
 
-const BOTTOM_MARGIN = 50
-
-const Wrapper = styled.SafeAreaView`
+const Wrapper = styled.View`
   flex: 1;
-  margin-bottom: -${BOTTOM_MARGIN}px;
   background-color: black;
 `
 
-const SearchField = styled.TextInput`
+const SEARCH_FIELD_HEIGHT = getSafeAreaInsets().top + 60
+
+const SearchWrapper = styled.View`
+  position: absolute;
+  width: 100%;
+  height: ${SEARCH_FIELD_HEIGHT}px;
+  shadow-color: black;
+  shadow-offset: 0;
+  shadow-opacity: 0.5;
+  shadow-radius: 2px;
+`
+
+const SearchBlur = styled(BlurView).attrs({
+  tint: 'dark',
+  intensity: 100,
+})`
+  flex: 1;
+  padding-top: ${getSafeAreaInsets().top}px;
+  justify-content: center;
+`
+
+const SearchField = styled.TextInput.attrs({
+  keyboardAppearance: 'dark',
+})`
   font-weight: 700;
   font-size: 20px;
   color: white;
   margin: 15px;
 `
 
-const ListWrapper = styled.ScrollView`
+const ListWrapper = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    paddingTop: SEARCH_FIELD_HEIGHT,
+    paddingBottom: getSafeAreaInsets().bottom,
+  },
+})`
   flex: 1;
 `
 
-const EndSpace = styled.View`
-  background-color: black;
-  height: ${BOTTOM_MARGIN}px;
-  width: 100%;
-`
+const ADD_BUTTON_SIZE = 75
 
-const AddButton = styled.TouchableOpacity`
-  width: 90px;
-  height: 90px;
-  border-radius: 45px;
-  background-color: black;
+const AddButton = styled.TouchableOpacity.attrs({
+  activeOpacity: 1,
+})`
+  width: ${ADD_BUTTON_SIZE}px;
+  height: ${ADD_BUTTON_SIZE}px;
+  border-radius: ${ADD_BUTTON_SIZE / 2}px;
   position: absolute;
   right: 15px;
-  bottom: 65px;
-  padding-top: 5px;
+  bottom: ${getSafeAreaInsets().bottom}px;
+  shadow-color: black;
+  shadow-offset: 0;
+  shadow-opacity: 0.5;
+  shadow-radius: 2px;
+`
+
+const AddButtonBlur = styled(BlurView).attrs({
+  tint: 'dark',
+  intensity: 100,
+})`
+  flex: 1;
+  border-radius: ${ADD_BUTTON_SIZE / 2}px;
+  padding-top: ${ADD_BUTTON_SIZE * 0.05}px;
   justify-content: center;
   align-items: center;
 `
@@ -63,12 +99,6 @@ export const BeerListView = ({ beerList, onAddBeer, onOpenBeer }) => {
   ])
   return (
     <Wrapper>
-      <SearchField
-        placeholder="Search"
-        placeholderTextColor="white"
-        onChangeText={onSetSearchTerm}
-        value={searchTerm}
-      />
       <ListWrapper>
         {filteredBeerList.map((beerItem) => {
           return (
@@ -85,10 +115,23 @@ export const BeerListView = ({ beerList, onAddBeer, onOpenBeer }) => {
             />
           )
         })}
-        <EndSpace />
       </ListWrapper>
+      <SearchWrapper>
+        <SearchBlur>
+          <SearchField
+            placeholder="Search"
+            placeholderTextColor="white"
+            onChangeText={onSetSearchTerm}
+            value={searchTerm}
+            clearButtonMode="while-editing"
+            selectionColor="white"
+          />
+        </SearchBlur>
+      </SearchWrapper>
       <AddButton onPress={onAddBeer}>
-        <AntDesign name="plus" size={65} color="white" />
+        <AddButtonBlur>
+          <AntDesign name="plus" size={ADD_BUTTON_SIZE * 0.7} color="white" />
+        </AddButtonBlur>
       </AddButton>
     </Wrapper>
   )

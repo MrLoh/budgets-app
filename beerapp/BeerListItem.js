@@ -5,7 +5,9 @@ import { AntDesign } from '@expo/vector-icons'
 import { BEER_COLORS } from './theme'
 import { BeerGlassIcon } from './BeerGlassIcons'
 
-const Wrapper = styled.TouchableOpacity`
+const Wrapper = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.9,
+})`
   background-color: ${(p) => BEER_COLORS[p.colorValue || 0]};
   padding: 10px;
   /* margin: 7.5px 15px; */

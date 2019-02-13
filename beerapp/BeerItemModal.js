@@ -2,17 +2,26 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Dimensions, Slider, Alert, Keyboard } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
+import { BlurView } from 'expo'
 
 import { BEER_COLORS } from './theme'
 import { BeerGlassIcon, glassPath } from './BeerGlassIcons'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
-const ModalWrapper = styled.TouchableOpacity`
+const ModalWrapper = styled.TouchableOpacity.attrs({
+  activeOpacity: 1,
+})`
   position: absolute;
   width: ${SCREEN_WIDTH}px;
   height: ${SCREEN_HEIGHT}px;
-  background-color: rgba(0, 0, 0, 0.3);
+`
+
+const ModalBlur = styled(BlurView).attrs({
+  tint: 'dark',
+  intensity: 100,
+})`
+  flex: 1;
   align-items: center;
   justify-content: center;
 `
@@ -22,7 +31,7 @@ const ModalCard = styled.TouchableOpacity.attrs({
 })`
   background-color: ${(p) => BEER_COLORS[p.colorValue || 0]};
   shadow-color: black;
-  shadow-offset: 1px;
+  shadow-offset: 0;
   shadow-opacity: 0.5;
   shadow-radius: 5px;
   width: ${SCREEN_WIDTH - 60}px;
@@ -69,19 +78,19 @@ const BeerGlassIconWrapper = styled.View`
   /* padding: 0 0 5px 0; */
 `
 
-const BeerAttribute = styled.TextInput`
+const BeerAttribute = styled.TextInput.attrs({ keyboardAppearance: 'dark' })`
   font-weight: 300;
   font-size: 18px;
   margin: 5px;
 `
 
-const BeerAttributeName = styled.TextInput`
+const BeerAttributeName = styled.TextInput.attrs({ keyboardAppearance: 'dark' })`
   font-weight: 700;
   font-size: 18px;
   margin: 5px;
 `
 
-const BeerAttributeNotes = styled.TextInput`
+const BeerAttributeNotes = styled.TextInput.attrs({ keyboardAppearance: 'dark' })`
   font-weight: 400;
   font-size: 12px;
   margin: 5px;
@@ -123,71 +132,78 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
   const [glassType, onSetGlassType] = useState(activeBeerItem.glassType || 0)
   return (
     <ModalWrapper onPress={onDismiss}>
-      <ModalCard colorValue={colorValue} onPress={Keyboard.dismiss}>
-        <SaveButton
-          onPress={() =>
-            onSaveBeer({ name, brewery, location, style, rating, colorValue, notes, glassType })
-          }
-        >
-          <Save>SAVE</Save>
-        </SaveButton>
-        <DeleteButton
-          onPress={() =>
-            Alert.alert(
-              'Delete Beer?',
-              'This action cannot be undone.',
-              [
-                { text: 'Cancel', style: 'cancel' },
-                { text: 'Delete', onPress: () => onDeleteBeer(activeBeerItem.id) },
-              ],
-              { cancelable: true }
-            )
-          }
-        >
-          <Delete>DELETE</Delete>
-        </DeleteButton>
-        <BeerGlassIconWrapper>
-          <BeerGlassIcon glassType={glassType} height={80} />
-        </BeerGlassIconWrapper>
-        <BeerAttributeName placeholder="Name" onChangeText={onSetName} value={name} />
-        <BeerAttribute placeholder="Brewery" onChangeText={onSetBrewery} value={brewery} />
-        <BeerAttribute placeholder="Location" onChangeText={onSetLocation} value={location} />
-        <BeerAttribute placeholder="Style" onChangeText={onSetStyle} value={style} />
-        <BeerAttributeNotes
-          placeholder="Notes"
-          multiline={true}
-          maxLength={160}
-          numberOfLines={4}
-          onChangeText={onSetNotes}
-          value={notes}
-        />
-        <BeerAttributeDescription>Beer Rating:</BeerAttributeDescription>
-        <RatingWrapper>
-          {[1, 2, 3, 4, 5].map((i) => (
-            <Rating active={rating >= i} onPress={() => onSetRating(i)} key={i}>
-              <AntDesign name={'star'} size={20} color={rating >= i ? '#000' : '#C7BEB8'} key={i} />
-            </Rating>
-          ))}
-        </RatingWrapper>
-        <BeerAttributeDescription>Set Glass:</BeerAttributeDescription>
-        <Slider
-          value={glassType}
-          onValueChange={onSetGlassType}
-          maximumValue={glassPath.length - 1}
-          step={1}
-          maximumTrackTintColor="#C7BEB8"
-          minimumTrackTintColor="#C7BEB8"
-        />
-        <BeerAttributeDescription>Set Color:</BeerAttributeDescription>
-        <Slider
-          value={colorValue}
-          onValueChange={onSetColorValue}
-          maximumValue={BEER_COLORS.length - 1}
-          step={1}
-          maximumTrackTintColor="#C7BEB8"
-          minimumTrackTintColor="#C7BEB8"
-        />
-      </ModalCard>
+      <ModalBlur>
+        <ModalCard colorValue={colorValue} onPress={Keyboard.dismiss}>
+          <SaveButton
+            onPress={() =>
+              onSaveBeer({ name, brewery, location, style, rating, colorValue, notes, glassType })
+            }
+          >
+            <Save>SAVE</Save>
+          </SaveButton>
+          <DeleteButton
+            onPress={() =>
+              Alert.alert(
+                'Delete Beer?',
+                'This action cannot be undone.',
+                [
+                  { text: 'Cancel', style: 'cancel' },
+                  { text: 'Delete', onPress: () => onDeleteBeer(activeBeerItem.id) },
+                ],
+                { cancelable: true }
+              )
+            }
+          >
+            <Delete>DELETE</Delete>
+          </DeleteButton>
+          <BeerGlassIconWrapper>
+            <BeerGlassIcon glassType={glassType} height={80} />
+          </BeerGlassIconWrapper>
+          <BeerAttributeName placeholder="Name" onChangeText={onSetName} value={name} />
+          <BeerAttribute placeholder="Brewery" onChangeText={onSetBrewery} value={brewery} />
+          <BeerAttribute placeholder="Location" onChangeText={onSetLocation} value={location} />
+          <BeerAttribute placeholder="Style" onChangeText={onSetStyle} value={style} />
+          <BeerAttributeNotes
+            placeholder="Notes"
+            multiline={true}
+            maxLength={160}
+            numberOfLines={4}
+            onChangeText={onSetNotes}
+            value={notes}
+          />
+          <BeerAttributeDescription>Beer Rating:</BeerAttributeDescription>
+          <RatingWrapper>
+            {[1, 2, 3, 4, 5].map((i) => (
+              <Rating active={rating >= i} onPress={() => onSetRating(i)} key={i}>
+                <AntDesign
+                  name={'star'}
+                  size={20}
+                  color={rating >= i ? '#000' : '#C7BEB8'}
+                  key={i}
+                />
+              </Rating>
+            ))}
+          </RatingWrapper>
+          <BeerAttributeDescription>Set Glass:</BeerAttributeDescription>
+          <Slider
+            value={glassType}
+            onValueChange={onSetGlassType}
+            maximumValue={glassPath.length - 1}
+            step={1}
+            maximumTrackTintColor="#C7BEB8"
+            minimumTrackTintColor="#C7BEB8"
+          />
+          <BeerAttributeDescription>Set Color:</BeerAttributeDescription>
+          <Slider
+            value={colorValue}
+            onValueChange={onSetColorValue}
+            maximumValue={BEER_COLORS.length - 1}
+            step={1}
+            maximumTrackTintColor="#C7BEB8"
+            minimumTrackTintColor="#C7BEB8"
+          />
+        </ModalCard>
+      </ModalBlur>
     </ModalWrapper>
   )
 }
