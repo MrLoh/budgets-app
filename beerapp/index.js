@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import shortid from 'shortid'
 import { ActivityIndicator, StatusBar } from 'react-native'
 import styled from 'styled-components'
+import { Haptic } from 'expo'
 
 import { BeerListView } from './BeerListView'
 import { BeerItemModal } from './BeerItemModal'
@@ -22,9 +23,11 @@ const App = () => {
       <BeerListView
         beerList={beerList}
         onAddBeer={() => {
+          Haptic.impact(Haptic.ImpactFeedbackStyle.Light)
           setActiveBeerItem({})
         }}
         onOpenBeer={(id) => {
+          Haptic.impact(Haptic.ImpactFeedbackStyle.Light)
           setActiveBeerItem(beerList.find((item) => item.id === id))
         }}
       />
@@ -34,6 +37,7 @@ const App = () => {
             setActiveBeerItem(undefined)
           }}
           onSaveBeer={(beerValues) => {
+            Haptic.notification(Haptic.NotificationFeedbackType.Success)
             if (activeBeerItem.id) {
               const updatedBeerItem = { id: activeBeerItem.id, ...beerValues }
               const itemIndex = beerList.findIndex((item) => item.id === activeBeerItem.id)
