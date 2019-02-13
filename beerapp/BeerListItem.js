@@ -18,30 +18,30 @@ const ContentWrapper = styled.View`
 `
 
 const IconWrapper = styled.View`
-  margin: 0 10px 0 0;
+  margin: 0 15px 0 5px;
   justify-content: center;
 `
 
 const RatingWrapper = styled.View`
   flex-direction: row;
-  margin: 2px 0px;
-  height: 15px;
+  margin: 6px 0 0 0;
+  height: 12px;
   align-items: center;
 `
 
 const Name = styled.Text`
   font-weight: 700;
-  font-size: 15;
+  font-size: 18;
 `
 
 const BeerAttribute = styled.Text`
   font-size: 13;
 `
 
-const BeerAttributeLocation = styled.Text`
-  font-size: 13;
-  font-style: italic;
-`
+// const Location = styled.Text`
+//   font-size: 12;
+//   font-style: italic;
+// `
 
 export const BeerListItem = ({
   id,
@@ -61,13 +61,14 @@ export const BeerListItem = ({
       </IconWrapper>
       <ContentWrapper>
         <Name>{name}</Name>
-        <BeerAttribute>{brewery}</BeerAttribute>
-        <BeerAttributeLocation>{location}</BeerAttributeLocation>
+        <BeerAttribute>
+          {brewery} || {location}
+        </BeerAttribute>
         <BeerAttribute>{style}</BeerAttribute>
         <RatingWrapper>
           {[1, 2, 3, 4, 5].map((i) =>
             rating >= i ? (
-              <AntDesign name={'star'} size={14} color={rating >= i ? '#000' : '#bbb'} key={i} />
+              <AntDesign name={'star'} size={12} color={rating >= i ? '#000' : '#bbb'} key={i} />
             ) : null
           )}
         </RatingWrapper>

@@ -60,51 +60,54 @@ const DeleteButton = styled.TouchableOpacity`
 const Delete = styled.Text`
   font-weight: 700;
   font-size: 15px;
-  color: red;
+  color: darkred;
 `
 
 const BeerGlassIconWrapper = styled.View`
   /* margin: 5px 0px; */
   align-items: center;
-  padding: 0 0 10px 0;
+  /* padding: 0 0 5px 0; */
 `
 
 const BeerAttribute = styled.TextInput`
-  font-weight: 700;
-  font-size: 15px;
+  font-weight: 300;
+  font-size: 18px;
   margin: 5px;
 `
 
 const BeerAttributeName = styled.TextInput`
-  font-weight: 900;
-  font-size: 15px;
+  font-weight: 700;
+  font-size: 18px;
   margin: 5px;
 `
 
 const BeerAttributeNotes = styled.TextInput`
-  font-weight: 500;
-  font-size: 15px;
+  font-weight: 400;
+  font-size: 12px;
   margin: 5px;
+  height: 60px;
+  /* font-style: italic; */
 `
 
 const BeerAttributeDescription = styled.Text`
-  font-weight: 700;
+  font-weight: 400;
   font-size: 12px;
-  margin: 5px 5px 0px 5px;
-  color: #999;
+  margin: 0 5px;
+  color: black;
+  opacity: 0.5;
 `
 
 const RatingWrapper = styled.View`
   flex-direction: row;
-  margin: 5px 0px;
-  height: 15px;
+  margin: 4px 0px;
+  /* height: 20px; */
   align-items: center;
 `
 
 const Rating = styled.TouchableOpacity`
-  width: 22px;
-  height: 22px;
-  padding: 2px;
+  /* width: 25px;
+  height: 25px; */
+  padding: 4px;
   justify-content: center;
   align-items: center;
 `
@@ -153,7 +156,8 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
         <BeerAttributeNotes
           placeholder="Notes"
           multiline={true}
-          maxLength={140}
+          maxLength={160}
+          numberOfLines={4}
           onChangeText={onSetNotes}
           value={notes}
         />
@@ -161,23 +165,27 @@ export const BeerItemModal = ({ onDismiss, onSaveBeer, onDeleteBeer, activeBeerI
         <RatingWrapper>
           {[1, 2, 3, 4, 5].map((i) => (
             <Rating active={rating >= i} onPress={() => onSetRating(i)} key={i}>
-              <AntDesign name={'star'} size={17} color={rating >= i ? '#000' : '#999'} key={i} />
+              <AntDesign name={'star'} size={20} color={rating >= i ? '#000' : '#C7BEB8'} key={i} />
             </Rating>
           ))}
         </RatingWrapper>
-        <BeerAttributeDescription>Beer Color:</BeerAttributeDescription>
-        <Slider
-          value={colorValue}
-          onValueChange={onSetColorValue}
-          maximumValue={BEER_COLORS.length - 1}
-          step={1}
-        />
-        <BeerAttributeDescription>Glass Icon:</BeerAttributeDescription>
+        <BeerAttributeDescription>Set Glass:</BeerAttributeDescription>
         <Slider
           value={glassType}
           onValueChange={onSetGlassType}
           maximumValue={glassPath.length - 1}
           step={1}
+          maximumTrackTintColor="#C7BEB8"
+          minimumTrackTintColor="#C7BEB8"
+        />
+        <BeerAttributeDescription>Set Color:</BeerAttributeDescription>
+        <Slider
+          value={colorValue}
+          onValueChange={onSetColorValue}
+          maximumValue={BEER_COLORS.length - 1}
+          step={1}
+          maximumTrackTintColor="#C7BEB8"
+          minimumTrackTintColor="#C7BEB8"
         />
       </ModalCard>
     </ModalWrapper>
